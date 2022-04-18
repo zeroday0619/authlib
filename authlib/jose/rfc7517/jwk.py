@@ -1,10 +1,20 @@
 from authlib.common.encoding import json_loads
+from authlib.jose.rfc7518 import OctKey
+from authlib.jose.rfc7518 import RSAKey
+from authlib.jose.rfc7518 import ECKey
+from authlib.jose.rfc8037 import OKPKey
 from .key_set import KeySet
+
 from ._cryptography_key import load_pem_key
 
 
 class JsonWebKey(object):
-    JWK_KEY_CLS = {}
+    JWK_KEY_CLS = {
+        'oct': OctKey,
+        'RSA': RSAKey,
+        'EC': ECKey,
+        'OKP': OKPKey,
+    }
 
     @classmethod
     def generate_key(cls, kty, crv_or_size, options=None, is_private=False):
